@@ -16,7 +16,6 @@ class Htmlator():
     def save_img_from_url(self, url, save_path):
         """saves an image to the indicated path"""
         urllib.request.urlretrieve(url, save_path)
-        print(result)
         return save_path
 
     
@@ -30,15 +29,15 @@ class Htmlator():
 
     
 
-url = "http://challenge01.root-me.org/programmation/ch8/"
+# url = "http://challenge01.root-me.org/programmation/ch8/"
 
-h = Htmlator()
-raw = h.extract_html(url)
-idx = raw.find('<img src="')
-start_index = idx + len('<img src="')
-end_index = raw.find('" /><br><br><')
-result = raw[start_index:end_index]
-h.save_img_from_url(result, 'img/captcha.png')
+# h = Htmlator()
+# raw = h.extract_html(url)
+# idx = raw.find('<img src="')
+# start_index = idx + len('<img src="')
+# end_index = raw.find('" /><br><br><')
+# result = raw[start_index:end_index]
+# h.save_img_from_url(result, 'img/captcha.png')
 
 
 

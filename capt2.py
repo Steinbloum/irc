@@ -6,16 +6,17 @@ import os
 import argparse
 from PIL import Image, ImageOps, ImageEnhance
 from htmlextractor import Htmlator
- 
+import cv2
+
 
 # imgpath = 'img/testcapt.png'
 tesseract = pytesseract.pytesseract.tesseract_cmd
 h = Htmlator()
 
 # def solve_captcha(path):
- 
+
 #     """
-#     Convert a captcha image into a text, 
+#     Convert a captcha image into a text,
 #     using PyTesseract Python-wrapper for Tesseract
 #     Arguments:
 #         path (str):
@@ -25,14 +26,14 @@ h = Htmlator()
 #     """
 #     image = Image.open(path).convert('RGB')
 #     image = ImageOps.autocontrast(image)
-    
+
 #     filename = "{}.png".format(os.getpid())
 #     image.save(filename)
- 
+
 #     text = pytesseract.image_to_string(Image.open(filename))
 #     return text
- 
- 
+
+
 # if __name__ == '__main__':
 #     argparser = argparse.ArgumentParser()
 #     argparser.add_argument("-i", "--image", required=True, help="img/testcapt.png")
@@ -41,12 +42,16 @@ h = Htmlator()
 #     print('-- Resolving')
 #     captcha_text = solve_captcha(path)
 #     print('-- Result: {}'.format(captcha_text))
-raw = h.extract_html('http://challenge01.root-me.org/programmation/ch8/')
+raw = h.extract_html("http://challenge01.root-me.org/programmation/ch8/")
 idx = raw.find('<img src="')
 start_index = idx + len('<img src="')
 end_index = raw.find('" /><br><br><')
 result = raw[start_index:end_index]
-imgpath = h.save_img_from_url(result, 'img/captcha.png')
 
-text = pytesseract.image_to_string(Image.open(imgpath))
-print (text)
+imgpt = h.save_img_from_url(result, "img/captcha.png")
+# img = Image.open(img)
+# img = cv2.cvtColor(imgpt, cv2.COLOR_BGR2GRAY)
+
+
+text = pytesseract.image_to_string(Image.open(imgpt))
+print(text)
